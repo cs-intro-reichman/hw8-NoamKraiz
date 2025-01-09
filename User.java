@@ -78,15 +78,13 @@
         for(int i=0; i<maxfCount; i++){
             if(follows[i] == null) return false;
             if(follows[i].equals(name)){
-                fCount--;
-                if(i == maxfCount-1) follows[i] = null;
                 while(follows[i]!=null){
                     follows[i] = follows[i++];
                     i++;
                 }
+                fCount--;
                 return true;
             }
-            if(follows[i]==null) break;
         }
         return false;
     }

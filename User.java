@@ -45,7 +45,8 @@
     public boolean follows(String name) {
         //// Replace the following statement with your code
         int index = 0;
-        while (! follows[index].equals(null)) {
+        if(name == null) return false;
+        while (follows[index]!=null) {
             if(follows[index].equals(name)) return true;
             index++;
         }
@@ -56,14 +57,15 @@
     public boolean addFollowee(String name) {
         //// Replace the following statement with your code
         int index=maxfCount-1;
+        if(name == null) return false;
         for (int i=0; i<maxfCount; i++) {
             if(follows[i].equals(name)) return false;
-            else if (follows[i].equals(null)) {
+            else if (follows[i]==null) {
                 index= i;
                 break;
             }
         }
-        if(!follows[index].equals(null)) return false;
+        if(follows[index]!=null) return false;
         else{
             follows[index+1] = name;
             fCount++;
@@ -75,17 +77,18 @@
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
         //// Replace the following statement with your code
+        if(name == null) return false;
         for(int i=0; i<maxfCount; i++){
             if(follows[i].equals(name)){
                 fCount--;
                 if(i == maxfCount-1) follows[i] = null;
-                while(! follows[i].equals(null)){
+                while(follows[i]!=null){
                     follows[i] = follows[i++];
                     i++;
                 }
                 return true;
             }
-            if(follows[i].equals(null)) break;
+            if(follows[i]==null) break;
         }
         return false;
     }
@@ -116,6 +119,7 @@
     public boolean isFriendOf(User other) {
         //// Replace the following statement with your code
         int count =0;
+        if(other.name == null) return false;
         for(int i=0; i<maxfCount; i++){
             if(other.follows[i] != null) if(other.follows[i].equals(name)) count++;;
             if(this.follows[i] != null) if(this.follows[i].equals(other.name)) count++;

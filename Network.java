@@ -43,9 +43,10 @@ public class Network {
     public boolean addUser(String name) {
         //// Replace the following statement with your code
         int index=0;
+        if(name == null) return false;
         for (int i=0; i<users.length; i++) {
             if(users[i].getName().equals(name)) return false;
-            else if (users[i].getName()==(null)) {
+            else if (users[i].getName()==null) {
                 index= i;
                 break;
             }
@@ -62,7 +63,7 @@ public class Network {
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
         //// Replace the following statement with your code
-        if(name1 == null || name2 == null) return false;
+        if(name1 == null || name2 == null || getUser(name1) == null || getUser(name2) == null) return false;
         for (int i=0; i<users.length; i++) {
             if(users[i].getName().equals(name1)|| users[i].getName().equals(name2)) return false;
         }

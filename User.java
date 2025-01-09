@@ -59,6 +59,7 @@
         int index=maxfCount-1;
         if(name == null) return false;
         for (int i=0; i<maxfCount; i++) {
+            if(follows[index] == null) return false;
             if(follows[i].equals(name)) return false;
             else if (follows[i]==null) {
                 index= i;
@@ -79,6 +80,7 @@
         //// Replace the following statement with your code
         if(name == null) return false;
         for(int i=0; i<maxfCount; i++){
+            if(follows[i] == null) return false;
             if(follows[i].equals(name)){
                 fCount--;
                 if(i == maxfCount-1) follows[i] = null;

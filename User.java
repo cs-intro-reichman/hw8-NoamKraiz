@@ -75,18 +75,17 @@
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
         //// Replace the following statement with your code
-        if(name == null) return false;
-        for(int i=0; i<maxfCount; i++){
-            if(follows[i] == null) return false;
-            if(follows[i].equals(name)){
-                while(follows[i]!=null && i<maxfCount){      
-                    if(i == maxfCount-1) {
-                        follows[i] = null;
-                        break;
-                    }          
-                    else follows[i] = follows[i++];
-                    i++;
+        if(name == null) return false;   
+          for(int i=1; i<=getfCount(); i++){
+ 
+            if(follows[i]==(name)){
+                int j=i;   
+                while(j<getfCount()-1){ 
+                    int x = j+1;
+                    follows[j] = follows[x];
+                    j++;
                 }
+                follows[j-1] = null;
                 fCount--;
                 return true;
             }

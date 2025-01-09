@@ -59,20 +59,16 @@
         int index=maxfCount-1;
         if(name == null) return false;
         for (int i=0; i<maxfCount; i++) {
-            if(follows[index] == null) return false;
-            if(follows[i].equals(name)) return false;
-            else if (follows[i]==null) {
-                index= i;
-                break;
+            if (follows[i]==null) {
+                if(i == index && follows[index]!=null) return false;
+                follows[i] = name;
+                fCount++;
+                return true;
             }
+            else if(follows[i].equals(name)) return false;
         }
-        if(follows[index]!=null) return false;
-        else{
-            follows[index+1] = name;
-            fCount++;
-            return true;
+        return false;
         }
-    }
 
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */

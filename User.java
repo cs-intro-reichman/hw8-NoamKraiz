@@ -45,10 +45,11 @@
     public boolean follows(String name) {
         //// Replace the following statement with your code
         int index = 0;
-        if(name == null) return false;
-        while (follows[index]!=null && index<maxfCount) {
-            if(follows[index].equals(name)) return true;
-            index++;
+        if(name != null){
+            while (follows[index]!=null && index<maxfCount) {
+                if(follows[index].equals(name)) return true;
+                index++;
+            }
         }
         return false;
     }
@@ -78,8 +79,12 @@
         for(int i=0; i<maxfCount; i++){
             if(follows[i] == null) return false;
             if(follows[i].equals(name)){
-                while(follows[i]!=null && i<maxfCount){
-                    follows[i] = follows[i++];
+                while(follows[i]!=null && i<maxfCount){      
+                    if(i == maxfCount-1) {
+                        follows[i] = null;
+                        break;
+                    }          
+                    else follows[i] = follows[i++];
                     i++;
                 }
                 fCount--;

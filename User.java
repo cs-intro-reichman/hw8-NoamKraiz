@@ -46,7 +46,7 @@
         //// Replace the following statement with your code
         int index = 0;
         if(name == null) return false;
-        while (follows[index]!=null) {
+        while (follows[index]!=null && index<maxfCount) {
             if(follows[index].equals(name)) return true;
             index++;
         }
@@ -78,7 +78,7 @@
         for(int i=0; i<maxfCount; i++){
             if(follows[i] == null) return false;
             if(follows[i].equals(name)){
-                while(follows[i]!=null){
+                while(follows[i]!=null && i<maxfCount){
                     follows[i] = follows[i++];
                     i++;
                 }

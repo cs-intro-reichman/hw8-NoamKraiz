@@ -31,6 +31,7 @@ public class Network {
     public User getUser(String name) {
         //// Replace the following statement with your code
         for(int i=0; i<userCount; i++){
+            if(users[i].getName() == null) return null;
             if(users[i].getName().equals(name)) return users[i];
         }
         return null;
@@ -45,6 +46,7 @@ public class Network {
         int index=0;
         if(name == null) return false;
         for (int i=0; i<users.length; i++) {
+            if(users[i].getName() == null) return false;
             if(users[i].getName().equals(name)) return false;
             else if (users[i].getName()==null) {
                 index= i;
@@ -65,6 +67,7 @@ public class Network {
         //// Replace the following statement with your code
         if(name1 == null || name2 == null || getUser(name1) == null || getUser(name2) == null) return false;
         for (int i=0; i<users.length; i++) {
+            if(users[i].getName() == null) return false;
             if(users[i].getName().equals(name1)|| users[i].getName().equals(name2)) return false;
         }
         return getUser(name1).addFollowee(name2);

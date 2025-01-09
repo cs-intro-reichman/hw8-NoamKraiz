@@ -115,10 +115,10 @@
     public boolean isFriendOf(User other) {
         //// Replace the following statement with your code
         int count =0;
-        if(other.name == null) return false;
+        if(other.name == null || name == null) return false;
         for(int i=0; i<maxfCount; i++){
             if(other.follows[i] != null) if(other.follows[i].equals(name)) count++;;
-            if(this.follows[i] != null) if(this.follows[i].equals(other.name)) count++;
+            if(follows[i] != null) if(follows[i].equals(other.name)) count++;
         }
         if(count == 2) return true;
         else return false;

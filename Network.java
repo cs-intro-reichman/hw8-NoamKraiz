@@ -42,15 +42,15 @@ public class Network {
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
         //// Replace the following statement with your code
-        int index=userCount-1;
-        for (int i=0; i<userCount; i++) {
+        int index=0;
+        for (int i=0; i<users.length; i++) {
             if(users[i].getName().equals(name)) return false;
-            else if (users[i].getName().equals("null")) {
+            else if (users[i].getName()==(null)) {
                 index= i;
                 break;
             }
         }
-        if(!users[index].getName().equals("null")) return false;
+        if(users[index].getName()!=null) return false;
         else{
             users[index+1] = new User(name);
             userCount++;
@@ -62,7 +62,8 @@ public class Network {
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
         //// Replace the following statement with your code
-        for (int i=0; i<userCount; i++) {
+        if(name1 == null || name2 == null) return false;
+        for (int i=0; i<users.length; i++) {
             if(users[i].getName().equals(name1)|| users[i].getName().equals(name2)) return false;
         }
         return getUser(name1).addFollowee(name2);
@@ -75,7 +76,7 @@ public class Network {
         //// Replace the following statement with your code
         int max=0;
         int index=0;
-        for(int i=0; i<userCount; i++){
+        for(int i=0; i<users.length; i++){
             if(getUser(name).countMutual(users[i]) > max){
                 max = getUser(name).countMutual(users[i]);
                 index = i;
@@ -90,7 +91,7 @@ public class Network {
         //// Replace the following statement with your code
         int max=0;
         int index=0;
-        for(int i=0; i<userCount; i++){
+        for(int i=0; i<users.length; i++){
             if(followeeCount(users[i].getName()) > max){
                 max= followeeCount(users[i].getName());
                 index=i;
@@ -104,7 +105,7 @@ public class Network {
     private int followeeCount(String name) {
         //// Replace the following statement with your code
         int count=0;
-        for(int i=0; i<userCount; i++){
+        for(int i=0; i<users.length; i++){
             if(users[i].getName() == name)i++;
             if( getUser(name).isFriendOf(users[i])) count++;
         }

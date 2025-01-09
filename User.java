@@ -45,7 +45,7 @@
     public boolean follows(String name) {
         //// Replace the following statement with your code
         int index = 0;
-        while (! follows[index].equals("null")) {
+        while (! follows[index].equals(null)) {
             if(follows[index].equals(name)) return true;
             index++;
         }
@@ -58,12 +58,12 @@
         int index=maxfCount-1;
         for (int i=0; i<maxfCount; i++) {
             if(follows[i].equals(name)) return false;
-            else if (follows[i].equals("null")) {
+            else if (follows[i].equals(null)) {
                 index= i;
                 break;
             }
         }
-        if(!follows[index].equals("null")) return false;
+        if(!follows[index].equals(null)) return false;
         else{
             follows[index+1] = name;
             fCount++;
@@ -78,14 +78,14 @@
         for(int i=0; i<maxfCount; i++){
             if(follows[i].equals(name)){
                 fCount--;
-                if(i == maxfCount-1) follows[i] = "null";
-                while(! follows[i].equals("null")){
+                if(i == maxfCount-1) follows[i] = null;
+                while(! follows[i].equals(null)){
                     follows[i] = follows[i++];
                     i++;
                 }
                 return true;
             }
-            if(follows[i].equals("null")) break;
+            if(follows[i].equals(null)) break;
         }
         return false;
     }
@@ -97,12 +97,16 @@
          //// Replace the following statement with your code
         int count =0;
         for(int i=0; i<maxfCount; i++){
+            if(follows[i] != null){
             for(int j=0; j<maxfCount; j++){
+                if(other.follows[j] != null){
                 if(follows[i].equals(other.follows[j])){
                     count++;
                     break;
                 }
             }
+            }
+        }
         }
         return count;
     }
@@ -111,10 +115,13 @@
      *  (if two users follow each other, they are said to be "friends.") */
     public boolean isFriendOf(User other) {
         //// Replace the following statement with your code
+        int count =0;
         for(int i=0; i<maxfCount; i++){
-            if(other.follows[i].equals(name)) return true;
+            if(other.follows[i] != null) if(other.follows[i].equals(name)) count++;;
+            if(this.follows[i] != null) if(this.follows[i].equals(other.name)) count++;
         }
-        return false;
+        if(count == 2) return true;
+        else return false;
     }
     /** Returns this user's name, and the names that s/he follows. */
     public String toString() {

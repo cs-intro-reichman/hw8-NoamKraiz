@@ -44,12 +44,9 @@
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
         //// Replace the following statement with your code
-        int index = 0;
-        if(name != null){
-            while (follows[index]!=null && index<maxfCount) {
-                if(follows[index].equals(name)) return true;
-                index++;
-            }
+        if(name == null) return false;
+        for (int i=0; i<getfCount(); i++) {
+            if(follows[i].equals(name)) return true;
         }
         return false;
     }
@@ -57,27 +54,24 @@
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
         //// Replace the following statement with your code
-        int index=maxfCount-1;
         if(name == null) return false;
-        for (int i=0; i<maxfCount; i++) {
-            if (follows[i]==null) {
-                if(i == index && follows[index]!=null) return false;
-                follows[i] = name;
-                fCount++;
-                return true;
-            }
-            else if(follows[i].equals(name)) return false;
-        }
-        return false;
+        if (follows(name)) return false;
+        int i = getfCount();
+        if (i<maxfCount) {           
+            follows[i]=name;
+            fCount++;
+            return true;}
+        else { 
+            return false;}
         }
 
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
         //// Replace the following statement with your code
-        if(name == null) return false;   
-          for(int i=1; i<=getfCount(); i++){
- 
+        if(name == null) return false;  
+        if (follows(name)) { 
+          for(int i=0; i<getfCount(); i++){
             if(follows[i]==(name)){
                 int j=i;   
                 while(j<getfCount()-1){ 
@@ -85,10 +79,11 @@
                     follows[j] = follows[x];
                     j++;
                 }
-                follows[j-1] = null;
-                fCount--;
+                follows[j] = null;
+                fCount=j;
                 return true;
             }
+        }
         }
         return false;
     }

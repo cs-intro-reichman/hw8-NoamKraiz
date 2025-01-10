@@ -30,7 +30,7 @@ public class Network {
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
         //// Replace the following statement with your code
-        for(int i=0; i<userCount; i++){
+        for(int i=0; i<getUserCount(); i++){
             if(users[i].getName() == null) return null;
             if(users[i].getName().equals(name)) return users[i];
         }
@@ -43,22 +43,15 @@ public class Network {
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
         //// Replace the following statement with your code
-        int index=0;
         if(name == null) return false;
-        for (int i=0; i<users.length; i++) {
-            if(users[i].getName() == null) return false;
-            if(users[i].getName().equals(name)) return false;
-            else if (users[i].getName()==null) {
-                index= i;
-                break;
-            }
-        }
-        if(users[index].getName()!=null) return false;
-        else{
-            users[index+1] = new User(name);
-            userCount++;
-            return true;
-        }    }
+        if(getUserCount()>= users.length) return false;
+        if (getUser(name) != null) return false;
+        int i=getUserCount();
+        users[i] = new User(name);
+        userCount++;
+        return true;
+    }
+
 
     /** Makes the user with name1 follow the user with name2. If successful, returns true.
      *  If any of the two names is not a user in this network,
@@ -66,13 +59,12 @@ public class Network {
     public boolean addFollowee(String name1, String name2) {
         //// Replace the following statement with your code
         if(name1 == null || name2 == null || getUser(name1) == null || getUser(name2) == null) return false;
-        for (int i=0; i<users.length; i++) {
-            if(users[i].getName() == null) return false;
-            if(users[i].getName().equals(name1)|| users[i].getName().equals(name2)) return false;
-        }
-        return getUser(name1).addFollowee(name2);
-        }
-        
+        boolean status1 = getUser(name1).addFollowee(name2);
+        boolean status2 = getUser(name2).addFollowee(name1);
+        if (status1 && status2) return true;
+        else return false;
+    }
+
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
@@ -80,7 +72,10 @@ public class Network {
         //// Replace the following statement with your code
         int max=0;
         int index=0;
-        for(int i=0; i<users.length; i++){
+        if (users.length==0 ) return null;
+        for(int i=1; i<users.length; i++){
+            if (users[i]==null) continue;
+            if (users[i].getName()==name ) continue;
             if(getUser(name).countMutual(users[i]) > max){
                 max = getUser(name).countMutual(users[i]);
                 index = i;
@@ -96,6 +91,7 @@ public class Network {
         int max=0;
         int index=0;
         for(int i=0; i<users.length; i++){
+            if (users[i]==null) continue;
             if(followeeCount(users[i].getName()) > max){
                 max= followeeCount(users[i].getName());
                 index=i;
@@ -108,9 +104,12 @@ public class Network {
      *  the users in this network. Note: A name can appear 0 or 1 times in each list. */
     private int followeeCount(String name) {
         //// Replace the following statement with your code
+        if (name == null) return 0;
         int count=0;
         for(int i=0; i<users.length; i++){
-            if(users[i].getName() == name)i++;
+            if (users[i]== null) continue;
+            if(users[i].getName() == name) continue;
+
             if( getUser(name).isFriendOf(users[i])) count++;
         }
         return count;
@@ -118,7 +117,13 @@ public class Network {
 
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
-       //// Replace the following statement with your code
-       return this.users.toString();
+       //// Replace the following statement with your code       
+       String ans = "";
+       for (int i = 0; i < users.length; i++) {
+        if (users[i]== null) continue;
+           ans = ans  + users[i].toString() + " , ";
+       }
+       return ans;
+
     }
 }
